@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-md-12">
+        <h2>Oktatók</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Keresztnév</th>
+                    <th>Vezetéknév</th>
+                    <th>Email</th>
+                    <th>Tanszék</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for(instructor of instructors(); track instructor.id) {
+                    <tr>
+                        <td>{{ instructor.firstName }}</td>
+                        <td>{{ instructor.lastName }}</td>
+                        <td>{{ instructor.email }}</td>
+                        <td>{{ instructor.department }}</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
