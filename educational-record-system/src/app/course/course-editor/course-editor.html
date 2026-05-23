@@ -1,0 +1,45 @@
+<div class="row">
+    <div class="col-md-12">
+        <h2>{{ isNewCourse ? 'Új kurzus felvétele' : 'Kurzus szerkesztése' }}</h2>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Tantárgy</label>
+        @if(isNewCourse) {
+        <select class="form-select" [(ngModel)]="selectedSubjectId">
+            <option [ngValue]="null">-- Válassz tantárgyat --</option>
+            @for(subject of subjects(); track subject.id) {
+            <option [ngValue]="subject.id">
+                [{{ subject.code }}] {{ subject.name }} ({{ subject.credits }} kredit)
+            </option>
+            }
+        </select>
+        } @else {
+        <input type="text" class="form-control" [value]="course()?.subject?.name ?? ''" disabled />
+        }
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Év</label>
+        <input type="number" class="form-control" [value]="year()" (input)="year.set(+$any($event.target).value)"
+            min="2000" max="2100" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Félév</label>
+        <select class="form-select" [value]="semester()" (change)="semester.set($any($event.target).value)">
+            <option value="">-- Válassz félévet --</option>
+            <option value="1">1. félév</option>
+            <option value="2">2. félév</option>
+        </select>
+    </div>
+
+    <div class="text-end">
+        <button class="btn btn-outline-secondary me-2" (click)="cancel()">
+            Mégse
+        </button>
+        <button class="btn btn-outline-primary" (click)="saveCourse()">
+            <i class="bi bi-floppy me-1"></i>
+            {{ isNewCourse ? 'Létrehozás' : 'Mentés' }}
+        </button>
+    </div>
+</div>

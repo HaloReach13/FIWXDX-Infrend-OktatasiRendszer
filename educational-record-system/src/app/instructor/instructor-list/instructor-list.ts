@@ -24,6 +24,10 @@ export class InstructorList implements OnInit {
     });
   }
 
+  viewInstructor(instructor: InstructorDTO): void {
+    this.router.navigate(['instructor-detail', instructor.id]);
+  }
+
   createInstructor(): void {
     this.router.navigate(['create-instructor']);
   }

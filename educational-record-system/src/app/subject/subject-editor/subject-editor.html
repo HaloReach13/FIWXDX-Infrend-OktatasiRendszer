@@ -1,0 +1,26 @@
+<div class="row">
+    <h2>Tárgy szerkesztése</h2>
+    <div class="col-md-12">
+        <form>
+            <div class="mb-2">
+                <label for="name">Kód:</label>
+                <input type="text" name="code" id="code" class="form-control"
+                    [(ngModel)]="subject().code">
+            </div>
+            <div class="mb-2">
+                <label for="name">Név:</label>
+                <input type="text" name="lastname" id="lastname" class="form-control"
+                    [(ngModel)]="subject().name">
+            </div>
+            <div class="mb-2">
+                <label for="address">Kredit:</label>
+                <input type="number" name="credit" id="credit" class="form-control"
+                    [(ngModel)]="subject().credits">
+            </div>
+            <div class="text-end mt-4">
+                <button class="btn btn-outline-secondary me-2" (click)="cancel()">Mégse</button>
+                <button class="btn btn-outline-primary" (click)="saveSubject()"><i class="bi bi-floppy"></i> Mentés</button>
+            </div>
+        </form>
+    </div>
+</div>

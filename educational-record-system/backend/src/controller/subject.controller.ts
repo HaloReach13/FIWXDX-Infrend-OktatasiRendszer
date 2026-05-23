@@ -7,6 +7,25 @@ export class SubjectController extends Controller {
     repository = AppDataSource.getRepository(Subject);
     instructorRepository = AppDataSource.getRepository(Instructor);
 
+    getInstructors = async (req: any, res: any) => {
+        try {
+            const id = req.params['id'];
+
+            const subject = await this.repository.findOne({
+                where: { id },
+                relations: ['instructors'],
+            });
+
+            if (!subject) {
+                return this.handleError(res, null, 404, 'No subject exists with the given id.');
+            }
+
+            res.json(subject.instructors);
+        } catch (err) {
+            this.handleError(res, err);
+        }
+    };
+
     assignInstructor = async (req: any, res: any) => {
         try {
             const subjectId = req.params['id'];
@@ -54,7 +73,7 @@ export class SubjectController extends Controller {
             if (!subject) {
                 return this.handleError(res, null, 404, 'No subject exists with the given id.');
             }
- 
+
             const exists = subject.instructors.some((i) => i.id === Number(instructorId));
             if (!exists) {
                 return this.handleError(res, null, 404, 'Instructor is not assigned to this subject.');

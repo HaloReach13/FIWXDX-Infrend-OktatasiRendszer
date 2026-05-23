@@ -12,7 +12,7 @@ export class Course implements CourseDTO {
     subject!: Subject;
 
     @Column()
-    semester!: string;
+    semester!: number;
 
     @Column()
     year!: number;

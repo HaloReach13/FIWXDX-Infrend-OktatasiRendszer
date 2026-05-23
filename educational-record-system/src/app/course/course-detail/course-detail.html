@@ -1,0 +1,82 @@
+<div class="row">
+    <div class="col-md-12">
+        <h2>Beiratkozott hallgatók</h2>
+        @if(course()) {
+        <div class="d-flex gap-2 mb-3">
+            <select class="form-select" [value]="selectedStudentId()"
+                (change)="selectedStudentId.set(+($any($event.target).value) || null)">
+                <option [value]="null">-- Válassz hallgatót --</option>
+                @for(student of availableStudents(); track student.id) {
+                <option [value]="student.id">
+                    [{{ student.neptunCode }}] {{ student.firstName }} {{ student.lastName }}
+                </option>
+                }
+            </select>
+            <button class="btn btn-primary text-nowrap" [disabled]="!selectedStudentId()" (click)="enrollStudent()">
+                <i class="bi bi-plus-lg me-1"></i>Hozzáad
+            </button>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Neptun kód</th>
+                    <th>Név</th>
+                    <th>Tankör</th>
+                    <th class="text-center" style="width: 200px;">Érdemjegy</th>
+                    <th class="text-end">Műveletek</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for(enrollment of enrollments(); track enrollment.enrollmentId) {
+                <tr>
+                    <td>
+                        <span class="badge bg-secondary">{{ enrollment.student.neptunCode }}</span>
+                    </td>
+                    <td>{{ enrollment.student.firstName }} {{ enrollment.student.lastName }}</td>
+                    <td>{{ enrollment.student.class }}</td>
+                    <td class="text-center">
+                        <div class="d-flex align-items-center gap-2 justify-content-center">
+                            <select class="form-select form-select-sm" style="width: 80px;"
+                                [value]="editingGrades()[enrollment.enrollmentId] ?? ''"
+                                (change)="updateEditingGrade(enrollment.enrollmentId, $any($event.target).value)">
+                                <option value="">–</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <button class="btn btn-sm btn-outline-success" (click)="saveGrade(enrollment)"
+                                [disabled]="editingGrades()[enrollment.enrollmentId] === enrollment.grade">
+                                <i class="bi bi-floppy"></i>
+                            </button>
+                        </div>
+                    </td>
+                    <td class="text-end">
+                        <button class="btn btn-sm btn-outline-danger" (click)="unenrollStudent(enrollment)">
+                            <i class="bi bi-x-lg"></i>
+                        </button>
+                    </td>
+                </tr>
+                }
+                @empty {
+                <tr>
+                    <td colspan="5" class="text-center text-muted py-4">
+                        <i class="bi bi-people fs-4 d-block mb-2"></i>
+                        Nincsenek beiratkozott hallgatók.
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        <div class="text-end mt-4">
+            <button class="btn btn-outline-secondary me-2" (click)="cancel()">Mégse</button>
+        </div>
+        } @else {
+        <div class="text-center py-5 text-muted">
+            <div class="spinner-border mb-3" role="status"></div>
+            <p>Betöltés...</p>
+        </div>
+        }
+    </div>
+</div>

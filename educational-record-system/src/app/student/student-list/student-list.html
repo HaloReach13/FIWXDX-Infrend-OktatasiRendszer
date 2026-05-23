@@ -1,7 +1,8 @@
 <div class="row">
     <div class="col-md-12">
         <h2>Hallgatók</h2>
-        <button class="btn btn-outline-success mb-2" (click)="createStudent()"><i class="bi bi-plus-lg"></i> Új hallgató hozzáadása</button>
+        <button class="btn btn-outline-success mb-2" (click)="createStudent()"><i class="bi bi-plus-lg"></i> Új hallgató
+            hozzáadása</button>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -11,23 +12,27 @@
                     <th>Email</th>
                     <th>Tankör</th>
                     <th>Aktuális félév</th>
-                    <th>Műveletek</th>
+                    <th class="text-end">Műveletek</th>
                 </tr>
             </thead>
             <tbody>
                 @for(student of students(); track student.id) {
-                    <tr>
-                        <td>{{ student.neptunCode }}</td>
-                        <td>{{ student.firstName }}</td>
-                        <td>{{ student.lastName }}</td>
-                        <td>{{ student.email }}</td>
-                        <td>{{ student.class }}</td>
-                        <td>{{ student.currentSemester }}</td>
-                        <td>
-                            <button class="btn btn-outline-primary me-2" (click)="editStudent(student)"><i class="bi bi-pencil-square"></i></button>
-                            <button class="btn btn-outline-danger" (click)="deleteStudent(student)"><i class="bi bi-trash"></i></button>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>{{ student.neptunCode }}</td>
+                    <td>{{ student.firstName }}</td>
+                    <td>{{ student.lastName }}</td>
+                    <td>{{ student.email }}</td>
+                    <td>{{ student.class }}</td>
+                    <td>{{ student.currentSemester }}</td>
+                    <td class="text-end">
+                        <button class="btn btn-sm btn-outline-info me-2" (click)="viewStudent(student)"><i
+                                class="bi bi-journal"></i> Felvett kurzusok</button>
+                        <button class="btn btn-sm btn-outline-primary me-2" (click)="editStudent(student)"><i
+                                class="bi bi-pencil-square"></i> Szerkeztés</button>
+                        <button class="btn btn-sm btn-outline-danger" (click)="deleteStudent(student)"><i
+                                class="bi bi-trash"></i></button>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>

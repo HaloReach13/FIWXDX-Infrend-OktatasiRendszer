@@ -24,6 +24,10 @@ export class StudentList implements OnInit {
     });
   }
 
+  viewStudent(student: StudentDTO): void {
+    this.router.navigate(['student-detail', student.id]);
+  }
+
   createStudent() {
     this.router.navigate(['create-student']);
   }

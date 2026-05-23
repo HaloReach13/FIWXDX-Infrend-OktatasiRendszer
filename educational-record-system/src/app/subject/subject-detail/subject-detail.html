@@ -1,0 +1,63 @@
+<div class="row">
+    <div class="col-md-12">
+        <h2>Hozzárendelt oktatók</h2>
+        @if(subject()) {
+        <div class="d-flex gap-2 mb-3">
+            <select class="form-select" [value]="selectedInstructorId()"
+                (change)="selectedInstructorId.set(+($any($event.target).value) || null)">
+                <option [value]="null">-- Válassz oktatót --</option>
+                @for(instructor of availableInstructors(); track instructor.id) {
+                <option [value]="instructor.id">
+                    {{ instructor.lastName }} {{ instructor.firstName }} – {{ instructor.department }}
+                </option>
+                }
+            </select>
+            <button class="btn btn-primary text-nowrap" [disabled]="!selectedInstructorId()"
+                (click)="assignInstructor()">
+                <i class="bi bi-plus-lg me-1"></i>Hozzáad
+            </button>
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Név</th>
+                    <th>Email</th>
+                    <th>Tanszék</th>
+                    <th class="text-end">Műveletek</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for(instructor of assignedInstructors(); track instructor.id) {
+                <tr>
+                    <td>{{ instructor.lastName }} {{ instructor.firstName }}</td>
+                    <td>{{ instructor.email }}</td>
+                    <td>{{ instructor.department }}</td>
+                    <td class="text-end">
+                        <button class="btn btn-sm btn-outline-danger" (click)="removeInstructor(instructor)">
+                            <i class="bi bi-x-lg"></i>
+                        </button>
+                    </td>
+                </tr>
+                }
+                @empty {
+                <tr>
+                    <td colspan="4" class="text-center text-muted py-3">
+                        <i class="bi bi-person-x fs-4 d-block mb-1"></i>
+                        Nincs hozzárendelt oktató.
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        <div class="text-end mt-4">
+            <button class="btn btn-outline-secondary me-2" (click)="cancel()">Mégse</button>
+        </div>
+        } @else {
+        <div class="text-center py-5 text-muted">
+            <div class="spinner-border mb-3" role="status"></div>
+            <p>Betöltés...</p>
+        </div>
+        }
+    </div>
+</div>

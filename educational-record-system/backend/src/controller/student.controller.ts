@@ -2,6 +2,7 @@ import { Controller } from "./base.controller";
 import { AppDataSource } from "../data-source";
 import { Student } from "../entity/Student";
 import { StudentCourse } from "../entity/StudentCourse";
+import { In, Not, IsNull } from "typeorm";
 
 export class StudentController extends Controller {
     repository = AppDataSource.getRepository(Student);
@@ -77,4 +78,39 @@ export class StudentController extends Controller {
             this.handleError(res, err);
         }
     };
+
+    getClassAverage = async (req: any, res: any) => {
+    try {
+        const className = req.params['className'];
+
+        const studentsInClass = await this.repository.find({
+            where: { class: className }
+        });
+
+        if (studentsInClass.length === 0) {
+            return res.json({ average: null });
+        }
+
+        const studentIds = studentsInClass.map(s => s.id);
+
+        const enrollments = await this.studentCourseRepository.find({
+            where: {
+                student: { id: In(studentIds) },
+                grade: Not(IsNull())
+            }
+        });
+
+        if (enrollments.length === 0) {
+            return res.json({ average: null });
+        }
+
+        const sum = enrollments.reduce((acc, curr) => acc + (curr.grade ?? 0), 0);
+        const classAverage = Math.round((sum / enrollments.length) * 100) / 100;
+
+        res.json({ average: classAverage });
+
+    } catch (err) {
+        this.handleError(res, err);
+    }
+};
 };

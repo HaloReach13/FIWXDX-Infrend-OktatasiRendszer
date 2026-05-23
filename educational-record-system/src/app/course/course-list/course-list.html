@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="col">
+            <h2>Kurzusok</h2>
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-outline-success mb-2" (click)="createCourse()">
+                <i class="bi bi-plus-lg me-1"></i> Új kurzus
+            </button>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Tantárgy kódja</th>
+                    <th>Tantárgy neve</th>
+                    <th class="text-center">Kredit</th>
+                    <th class="text-center">Év</th>
+                    <th class="text-center">Félév</th>
+                    <th class="text-end">Műveletek</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for(course of courses(); track course.id) {
+                <tr>
+                    <td>{{ course.subject.code }}</td>
+                    <td>{{ course.subject.name }}</td>
+                    <td class="text-center">{{ course.subject.credits }}</td>
+                    <td class="text-center">{{ course.year }}</td>
+                    <td class="text-center">{{ course.semester }}</td>
+                    <td class="text-end">
+                        <button class="btn btn-sm btn-outline-info me-2" (click)="viewCourse(course)">
+                            <i class="bi bi-eye me-1"></i>Részletek
+                        </button>
+                        <button class="btn btn-sm btn-outline-primary me-2" (click)="editCourse(course)">
+                            <i class="bi bi-pencil me-1"></i>Szerkesztés
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger" (click)="deleteCourse(course)">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+                }
+                @empty {
+                <tr>
+                    <td colspan="6" class="text-center text-muted py-4">
+                        <i class="bi bi-inbox fs-4 d-block mb-2"></i>
+                        Nincsenek kurzusok rögzítve.
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

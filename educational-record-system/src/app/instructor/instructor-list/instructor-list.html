@@ -1,7 +1,8 @@
 <div class="row">
     <div class="col-md-12">
         <h2>Oktatók</h2>
-        <button class="btn btn-outline-success mb-2" (click)="createInstructor()"><i class="bi bi-plus-lg"></i> Új oktató hozzáadása</button>
+        <button class="btn btn-outline-success mb-2" (click)="createInstructor()"><i class="bi bi-plus-lg"></i> Új
+            oktató hozzáadása</button>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -9,21 +10,25 @@
                     <th>Vezetéknév</th>
                     <th>Email</th>
                     <th>Tanszék</th>
-                    <th>Műveletek</th>
+                    <th class="text-end">Műveletek</th>
                 </tr>
             </thead>
             <tbody>
                 @for(instructor of instructors(); track instructor.id) {
-                    <tr>
-                        <td>{{ instructor.firstName }}</td>
-                        <td>{{ instructor.lastName }}</td>
-                        <td>{{ instructor.email }}</td>
-                        <td>{{ instructor.department }}</td>
-                        <td>
-                            <button class="btn btn-outline-primary me-2" (click)="editInstructor(instructor)"><i class="bi bi-pencil-square"></i></button>
-                            <button class="btn btn-outline-danger" (click)="deleteInstructor(instructor)"><i class="bi bi-trash"></i></button>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>{{ instructor.firstName }}</td>
+                    <td>{{ instructor.lastName }}</td>
+                    <td>{{ instructor.email }}</td>
+                    <td>{{ instructor.department }}</td>
+                    <td class="text-end">
+                        <button class="btn btn-sm btn-outline-info me-2" (click)="viewInstructor(instructor)"><i
+                                class="bi bi-journal"></i> Oktatott tárgyak</button>
+                        <button class="btn btn-sm btn-outline-primary me-2" (click)="editInstructor(instructor)"><i
+                                class="bi bi-pencil-square"></i> Szerkeztés</button>
+                        <button class="btn btn-sm btn-outline-danger" (click)="deleteInstructor(instructor)"><i
+                                class="bi bi-trash"></i></button>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>

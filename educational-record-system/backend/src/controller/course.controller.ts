@@ -9,6 +9,52 @@ export class CourseController extends Controller {
     studentRepository = AppDataSource.getRepository(Student);
     studentCourseRepository = AppDataSource.getRepository(StudentCourse);
 
+    getAll = async (req: any, res: any) => {
+        try {
+            const entities = await this.repository.find({
+                relations: ['subject']
+            });
+            res.json(entities);
+        } catch (err) {
+            this.handleError(res, err);
+        }
+    };
+
+    getOne = async (req: any, res: any) => {
+        try {
+            const id = req.params['id'];
+            const entity = await this.repository.findOne({
+                where: { id },
+                relations: ['subject']
+            });
+
+            if (!entity) {
+                return this.handleError(res, null, 404, 'No entity exists with the given id.');
+            }
+
+            res.json(entity);
+        } catch (err) {
+            this.handleError(res, err);
+        }
+    };
+
+    create = async (req: any, res: any) => {
+        try {
+            const { subjectId, semester, year } = req.body;
+
+            const newCourse = this.repository.create({
+                semester,
+                year,
+                subject: { id: subjectId }
+            });
+
+            const saved = await this.repository.save(newCourse);
+            res.json(saved);
+        } catch (err) {
+            this.handleError(res, err);
+        }
+    };
+
     enrollStudent = async (req: any, res: any) => {
         try {
             const courseId = req.params['id'];
@@ -71,7 +117,7 @@ export class CourseController extends Controller {
             if (!enrollment) {
                 return this.handleError(res, null, 404, 'Student is not enrolled in this course.');
             }
- 
+
             await this.studentCourseRepository.remove(enrollment);
             res.send();
         }
@@ -89,7 +135,7 @@ export class CourseController extends Controller {
             if (grade === undefined || grade === null) {
                 return this.handleError(res, null, 400, 'Grade must be provided in the request body.');
             }
- 
+
             if (!Number.isInteger(grade) || grade < 1 || grade > 5) {
                 return this.handleError(res, null, 400, 'Grade must be an integer between 1 and 5.');
             }
@@ -101,11 +147,11 @@ export class CourseController extends Controller {
                 .where('student.id = :studentId', { studentId })
                 .andWhere('course.id = :courseId', { courseId })
                 .getOne();
- 
+
             if (!enrollment) {
                 return this.handleError(res, null, 404, 'Student is not enrolled in this course.');
             }
- 
+
             enrollment.grade = grade;
             const saved = await this.studentCourseRepository.save(enrollment);
             res.json(saved);
@@ -118,23 +164,23 @@ export class CourseController extends Controller {
     getStudents = async (req: any, res: any) => {
         try {
             const courseId = req.params['id'];
- 
+
             const course = await this.repository.findOneBy({ id: courseId });
             if (!course) {
                 return this.handleError(res, null, 404, 'No course exists with the given id.');
             }
- 
+
             const enrollments = await this.studentCourseRepository.find({
                 where: { course: { id: courseId } },
                 relations: ['student'],
             });
- 
+
             const result = enrollments.map((sc) => ({
                 enrollmentId: sc.id,
                 grade: sc.grade ?? null,
                 student: sc.student,
             }));
- 
+
             res.json(result);
         } catch (err) {
             this.handleError(res, err);

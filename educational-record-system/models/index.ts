@@ -3,6 +3,7 @@ export interface SubjectDTO {
     code: string;
     name: string;
     credits: number;
+    //courses: CourseDTO[];
 }
 
 export interface InstructorDTO {
@@ -26,7 +27,7 @@ export interface StudentDTO {
 export interface CourseDTO {
     id: number;
     subject: SubjectDTO;
-    semester: string;
+    semester: number;
     year: number;
 }
 

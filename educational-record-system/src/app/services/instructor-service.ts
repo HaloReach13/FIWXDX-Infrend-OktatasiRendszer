@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { InstructorDTO } from '../../../models';
+import { InstructorDTO, SubjectDTO } from '../../../models';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +14,10 @@ export class InstructorService {
 
   getOne(id: number) {
     return this.http.get<InstructorDTO>(`/api/instructors/${id}`)
+  }
+
+  getSubjects(id: number) {
+    return this.http.get<SubjectDTO[]>(`/api/instructors/${id}/subjects`);
   }
   
   create(instructor: InstructorDTO) {
