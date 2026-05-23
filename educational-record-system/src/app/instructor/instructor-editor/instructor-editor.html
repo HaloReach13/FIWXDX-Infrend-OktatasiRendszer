@@ -1,0 +1,31 @@
+<div class="row">
+    <h2>Oktató szerkesztése</h2>
+    <div class="col-md-12">
+        <form>
+            <div class="mb-2">
+                <label for="name">Keresztnév:</label>
+                <input type="text" name="firstname" id="firstname" class="form-control"
+                    [(ngModel)]="instructor().firstName">
+            </div>
+            <div class="mb-2">
+                <label for="name">Vezetéknév:</label>
+                <input type="text" name="lastname" id="lastname" class="form-control"
+                    [(ngModel)]="instructor().lastName">
+            </div>
+            <div class="mb-2">
+                <label for="address">Email:</label>
+                <input type="text" name="email" id="email" class="form-control"
+                    [(ngModel)]="instructor().email">
+            </div>
+            <div class="mb-2">
+                <label for="address">Tanszék:</label>
+                <input type="text" name="department" id="department" class="form-control"
+                    [(ngModel)]="instructor().department">
+            </div>
+            <div class="text-end mt-4">
+                <button class="btn btn-outline-secondary me-2" (click)="cancel()">Mégse</button>
+                <button class="btn btn-outline-primary" (click)="saveInstructor()"><i class="bi bi-floppy"></i> Mentés</button>
+            </div>
+        </form>
+    </div>
+</div>

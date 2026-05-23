@@ -19,7 +19,7 @@ export interface StudentDTO {
     firstName: string;
     lastName: string;
     email: string;
-    currentSemester: string;
+    currentSemester: number;
     class: string;
 }
 

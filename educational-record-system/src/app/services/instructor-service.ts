@@ -11,4 +11,20 @@ export class InstructorService {
   getAll() {
     return this.http.get<InstructorDTO[]>('/api/instructors');
   }
+
+  getOne(id: number) {
+    return this.http.get<InstructorDTO>(`/api/instructors/${id}`)
+  }
+  
+  create(instructor: InstructorDTO) {
+    return this.http.post('/api/instructors', instructor);
+  }
+
+  update(instructor: InstructorDTO) {
+    return this.http.put('/api/instructors', instructor);
+  }
+
+  delete(id: number) {
+    return this.http.delete(`/api/instructors/${id}`);
+  }
 }

@@ -1,0 +1,41 @@
+<div class="row">
+    <h2>Hallgató szerkesztése</h2>
+    <div class="col-md-12">
+        <form>
+            <div class="mb-2">
+                <label for="name">Neptun kód:</label>
+                <input type="text" name="neptunCode" id="neptunCode" class="form-control"
+                    [(ngModel)]="student().neptunCode">
+            </div>
+            <div class="mb-2">
+                <label for="name">Keresztnév:</label>
+                <input type="text" name="firstname" id="firstname" class="form-control"
+                    [(ngModel)]="student().firstName">
+            </div>
+            <div class="mb-2">
+                <label for="name">Vezetéknév:</label>
+                <input type="text" name="lastname" id="lastname" class="form-control"
+                    [(ngModel)]="student().lastName">
+            </div>
+            <div class="mb-2">
+                <label for="address">Email:</label>
+                <input type="text" name="email" id="email" class="form-control"
+                    [(ngModel)]="student().email">
+            </div>
+            <div class="mb-2">
+                <label for="address">Tankör:</label>
+                <input type="text" name="class" id="class" class="form-control"
+                    [(ngModel)]="student().class">
+            </div>
+            <div class="mb-2">
+                <label for="address">Aktuális félév:</label>
+                <input type="number" name="currentSemester" id="currentSemester" class="form-control"
+                    [(ngModel)]="student().currentSemester">
+            </div>
+            <div class="text-end mt-4">
+                <button class="btn btn-outline-secondary me-2" (click)="cancel()">Mégse</button>
+                <button class="btn btn-outline-primary" (click)="saveStudent()"><i class="bi bi-floppy"></i> Mentés</button>
+            </div>
+        </form>
+    </div>
+</div>

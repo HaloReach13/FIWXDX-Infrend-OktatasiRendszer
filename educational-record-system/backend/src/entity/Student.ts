@@ -20,7 +20,7 @@ export class Student implements StudentDTO {
     email!: string;
 
     @Column()
-    currentSemester!: string;
+    currentSemester!: number;
 
     @Column()
     class!: string;
