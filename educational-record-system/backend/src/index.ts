@@ -2,6 +2,9 @@ import "reflect-metadata";
 import { AppDataSource } from "./data-source";
 import express from "express";
 import { appRouter } from "./routes";
+import { handleAuthorizationError } from "./protect-routes";
+
+const getRoutes = () => appRouter;
 
 async function main() {
     await AppDataSource.initialize();
@@ -10,7 +13,7 @@ async function main() {
 
     app.use(express.json());
 
-    app.use('/api', appRouter);
+    app.use('/api', getRoutes(), handleAuthorizationError);
 
     app.listen(3000, (err) => {
         if (err) {

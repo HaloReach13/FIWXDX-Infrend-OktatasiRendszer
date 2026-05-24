@@ -1,6 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { StudentDTO } from '../../../../models'
 import { StudentService } from '../../services/student-service';
+import { AuthService } from '../../services/auth';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,6 +13,7 @@ import { Router } from '@angular/router';
 export class StudentList implements OnInit {
   students = signal<StudentDTO[]>([]);
   studentService = inject(StudentService);
+  authService = inject(AuthService);
   router = inject(Router);
 
   ngOnInit(): void {

@@ -1,8 +1,10 @@
 <div class="row">
     <div class="col-md-12">
         <h2>Tantárgyak</h2>
+        @if(authService.isLoggedIn()) {
         <button class="btn btn-outline-success mb-2" (click)="createSubject()"><i class="bi bi-plus-lg"></i> Új tárgy
             hozzáadása</button>
+        }
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -19,12 +21,14 @@
                     <td>{{ subject.name }}</td>
                     <td>{{ subject.credits }}</td>
                     <td class="text-end">
+                        @if(authService.isLoggedIn()) {
                         <button class="btn btn-sm btn-outline-info me-2" (click)="viewSubject(subject)"><i
                                 class="bi bi-journal"></i> Oktatók hozzárendelése</button>
                         <button class="btn btn-sm btn-outline-primary me-2" (click)="editSubject(subject)"><i
                                 class="bi bi-pencil"></i> Szerkeztés</button>
                         <button class="btn btn-sm btn-outline-danger" (click)="deleteSubject(subject)"><i
                                 class="bi bi-trash"></i></button>
+                        }
                     </td>
                 </tr>
                 }

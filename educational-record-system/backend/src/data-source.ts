@@ -1,4 +1,5 @@
 import { DataSource } from "typeorm";
+import { Administrator } from "./entity/Administrator";
 import { Subject } from "./entity/Subject";
 import { Instructor } from "./entity/Instructor";
 import { Course } from "./entity/Course";
@@ -14,7 +15,7 @@ export const AppDataSource = new DataSource({
     database: "educational-record-system",
     synchronize: true,
     logging: true,
-    entities: [Subject, Instructor, Student, Course, StudentCourse],
+    entities: [Administrator ,Subject, Instructor, Student, Course, StudentCourse],
     subscribers: [],
     migrations: [],
 });

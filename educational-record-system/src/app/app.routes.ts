@@ -1,4 +1,6 @@
+import { inject } from '@angular/core';
 import { Routes } from '@angular/router';
+import { Login } from './login/login/login';
 import { CourseList } from './course/course-list/course-list';
 import { CourseEditor } from './course/course-editor/course-editor';
 import { CourseDetail } from './course/course-detail/course-detail';
@@ -11,27 +13,35 @@ import { StudentDetail } from "./student/student-detail/student-detail";
 import { SubjectList } from './subject/subject-list/subject-list';
 import { SubjectEditor } from './subject/subject-editor/subject-editor';
 import { SubjectDetail } from './subject/subject-detail/subject-detail';
- 
+import { AuthService } from './services/auth';
+
 export const routes: Routes = [
-    { 
-        path: '',                         
+    {
+        path: '',
         component: CourseList
     },
-    { 
-        path: 'courses',                  
-        component: CourseList 
+    {
+        path: 'login',
+        component: Login
     },
-    { 
-        path: 'create-course',            
-        component: CourseEditor 
+    {
+        path: 'courses',
+        component: CourseList
     },
-    { 
-        path: 'edit-course/:id',          
-        component: CourseEditor 
+    {
+        path: 'create-course',
+        component: CourseEditor,
+        canActivate: [ () => inject(AuthService).preventGuestAccess() ]
     },
-    { 
-        path: 'course-detail/:id',        
-        component: CourseDetail 
+    {
+        path: 'edit-course/:id',
+        component: CourseEditor,
+        canActivate: [ () => inject(AuthService).preventGuestAccess() ]
+    },
+    {
+        path: 'course-detail/:id',
+        component: CourseDetail,
+        canActivate: [ () => inject(AuthService).preventGuestAccess() ]
     },
     {
         path: 'instructors',
@@ -39,15 +49,18 @@ export const routes: Routes = [
     },
     {
         path: 'create-instructor',
-        component: InstructorEditor
+        component: InstructorEditor,
+        canActivate: [ () => inject(AuthService).preventGuestAccess() ]
     },
     {
         path: 'edit-instructor/:id',
-        component: InstructorEditor
+        component: InstructorEditor,
+        canActivate: [ () => inject(AuthService).preventGuestAccess() ]
     },
-    { 
+    {
         path: 'instructor-detail/:id',
-        component: InstructorDetail
+        component: InstructorDetail,
+        canActivate: [ () => inject(AuthService).preventGuestAccess() ]
     },
     {
         path: 'students',
@@ -55,15 +68,18 @@ export const routes: Routes = [
     },
     {
         path: 'create-student',
-        component: StudentEditor
+        component: StudentEditor,
+        canActivate: [ () => inject(AuthService).preventGuestAccess() ]
     },
     {
         path: 'edit-student/:id',
-        component: StudentEditor
+        component: StudentEditor,
+        canActivate: [ () => inject(AuthService).preventGuestAccess() ]
     },
-    { 
+    {
         path: 'student-detail/:id',
-        component: StudentDetail
+        component: StudentDetail,
+        canActivate: [ () => inject(AuthService).preventGuestAccess() ]
     },
     {
         path: 'subjects',
@@ -71,14 +87,17 @@ export const routes: Routes = [
     },
     {
         path: 'create-subject',
-        component: SubjectEditor
+        component: SubjectEditor,
+        canActivate: [ () => inject(AuthService).preventGuestAccess() ]
     },
     {
         path: 'edit-subject/:id',
-        component: SubjectEditor
+        component: SubjectEditor,
+        canActivate: [ () => inject(AuthService).preventGuestAccess() ]
     },
-    { 
-        path: 'subject-detail/:id', 
-        component: SubjectDetail 
+    {
+        path: 'subject-detail/:id',
+        component: SubjectDetail,
+        canActivate: [ () => inject(AuthService).preventGuestAccess() ]
     }
 ];

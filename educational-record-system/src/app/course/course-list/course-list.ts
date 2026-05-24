@@ -1,6 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CourseEntry } from '../../interfaces';
 import { CourseService } from '../../services/course-service';
+import { AuthService } from '../../services/auth';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,6 +13,7 @@ import { Router } from '@angular/router';
 export class CourseList implements OnInit {
   courses = signal<CourseEntry[]>([]);
   courseService = inject(CourseService);
+  authService = inject(AuthService);
   router = inject(Router);
  
   ngOnInit(): void {

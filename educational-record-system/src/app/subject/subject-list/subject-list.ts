@@ -1,6 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { SubjectDTO } from '../../../../models'
 import { SubjectService } from '../../services/subject-service';
+import { AuthService } from '../../services/auth';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,6 +13,7 @@ import { Router } from '@angular/router';
 export class SubjectList implements OnInit {
   subjects = signal<SubjectDTO[]>([]);
   subjectService = inject(SubjectService);
+  authService = inject(AuthService);
   router = inject(Router);
 
   ngOnInit(): void {

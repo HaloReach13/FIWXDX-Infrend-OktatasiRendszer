@@ -1,8 +1,10 @@
 <div class="row">
     <div class="col-md-12">
         <h2>Hallgatók</h2>
+        @if(authService.isLoggedIn()) {
         <button class="btn btn-outline-success mb-2" (click)="createStudent()"><i class="bi bi-plus-lg"></i> Új hallgató
             hozzáadása</button>
+        }
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -25,12 +27,14 @@
                     <td>{{ student.class }}</td>
                     <td>{{ student.currentSemester }}</td>
                     <td class="text-end">
+                        @if(authService.isLoggedIn()) {
                         <button class="btn btn-sm btn-outline-info me-2" (click)="viewStudent(student)"><i
                                 class="bi bi-journal"></i> Felvett kurzusok</button>
                         <button class="btn btn-sm btn-outline-primary me-2" (click)="editStudent(student)"><i
                                 class="bi bi-pencil-square"></i> Szerkeztés</button>
                         <button class="btn btn-sm btn-outline-danger" (click)="deleteStudent(student)"><i
                                 class="bi bi-trash"></i></button>
+                        }
                     </td>
                 </tr>
                 }

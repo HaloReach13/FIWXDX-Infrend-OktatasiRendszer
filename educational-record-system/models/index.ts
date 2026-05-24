@@ -1,9 +1,25 @@
+export interface AdministratorDTO {
+    id: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+}
+
+export interface LoginDTO {
+    email: string;
+    password: string;
+}
+
+export interface AccessTokenDTO {
+    accessToken: string;
+}
+
 export interface SubjectDTO {
     id: number;
     code: string;
     name: string;
     credits: number;
-    //courses: CourseDTO[];
 }
 
 export interface InstructorDTO {
