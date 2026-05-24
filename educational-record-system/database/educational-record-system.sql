@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: localhost
--- Létrehozás ideje: 2026. Máj 18. 17:36
+-- Létrehozás ideje: 2026. Máj 24. 19:10
 -- Kiszolgáló verziója: 10.4.32-MariaDB
 -- PHP verzió: 8.2.12
 
@@ -24,24 +24,45 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Tábla szerkezet ehhez a táblához `administrator`
+--
+
+CREATE TABLE `administrator` (
+  `id` int(11) NOT NULL,
+  `firstName` varchar(255) NOT NULL,
+  `lastName` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
+
+--
+-- A tábla adatainak kiíratása `administrator`
+--
+
+INSERT INTO `administrator` (`id`, `firstName`, `lastName`, `email`, `password`) VALUES
+(5, 'Példa', 'Béla', 'user@example.com', '$2b$12$.LI9wzgGEniDOC5qABZhRe65wAjnB/UvRI.tNyUJWasWuaicV464.');
+
+-- --------------------------------------------------------
+
+--
 -- Tábla szerkezet ehhez a táblához `course`
 --
 
 CREATE TABLE `course` (
   `id` int(11) NOT NULL,
-  `semester` varchar(255) NOT NULL,
   `year` int(11) NOT NULL,
-  `subjectId` int(11) DEFAULT NULL
+  `subjectId` int(11) DEFAULT NULL,
+  `semester` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
 --
 -- A tábla adatainak kiíratása `course`
 --
 
-INSERT INTO `course` (`id`, `semester`, `year`, `subjectId`) VALUES
-(1, '1', 2025, 1),
-(2, '1', 2025, 2),
-(3, '2', 2026, 3);
+INSERT INTO `course` (`id`, `year`, `subjectId`, `semester`) VALUES
+(1, 2025, 1, 1),
+(2, 2025, 2, 1),
+(3, 2026, 3, 2);
 
 -- --------------------------------------------------------
 
@@ -98,7 +119,7 @@ CREATE TABLE `student` (
   `lastName` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `class` varchar(255) NOT NULL,
-  `currentSemester` varchar(255) NOT NULL
+  `currentSemester` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
 --
@@ -106,9 +127,10 @@ CREATE TABLE `student` (
 --
 
 INSERT INTO `student` (`id`, `neptunCode`, `firstName`, `lastName`, `email`, `class`, `currentSemester`) VALUES
-(1, 'ABC123', 'Bence', 'Kovács', 'bence.kovacs@stud.hu', 'PTI-BSc-1', '2'),
-(2, 'XYZ789', 'Anna', 'Tóth', 'anna.toth@stud.hu', 'PTI-BSc-1', '2'),
-(3, 'QWE456', 'Péter', 'Kiss', 'peter.kiss@stud.hu', 'MER-BSc-2', '4');
+(1, 'ABC123', 'Bence', 'Kovács', 'bence.kovacs@stud.hu', 'PTI-BSc-1', 2),
+(2, 'XYZ789', 'Anna', 'Tóth', 'anna.toth@stud.hu', 'PTI-BSc-1', 2),
+(3, 'QWE456', 'Péter', 'Kiss', 'peter.kiss@stud.hu', 'MER-BSc-2', 4),
+(6, 'FIWXDX', 'Balázs', 'Juhász', 'juhaszbazsi13@gmail.com', 'BPROF', 4);
 
 -- --------------------------------------------------------
 
@@ -131,8 +153,9 @@ INSERT INTO `student_course` (`id`, `grade`, `studentId`, `courseId`) VALUES
 (1, 5, 1, 1),
 (2, 3, 1, 2),
 (3, 4, 2, 1),
-(4, NULL, 2, 3),
-(5, 2, 3, 2);
+(4, 5, 2, 3),
+(5, 2, 3, 2),
+(7, 5, 6, 1);
 
 -- --------------------------------------------------------
 
@@ -159,6 +182,13 @@ INSERT INTO `subject` (`id`, `code`, `name`, `credits`) VALUES
 --
 -- Indexek a kiírt táblákhoz
 --
+
+--
+-- A tábla indexei `administrator`
+--
+ALTER TABLE `administrator`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `IDX_be0ce9bef56d5a30b9e5752564` (`email`);
 
 --
 -- A tábla indexei `course`
@@ -206,34 +236,40 @@ ALTER TABLE `subject`
 --
 
 --
+-- AUTO_INCREMENT a táblához `administrator`
+--
+ALTER TABLE `administrator`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT a táblához `course`
 --
 ALTER TABLE `course`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT a táblához `instructor`
 --
 ALTER TABLE `instructor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT a táblához `student`
 --
 ALTER TABLE `student`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT a táblához `student_course`
 --
 ALTER TABLE `student_course`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT a táblához `subject`
 --
 ALTER TABLE `subject`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Megkötések a kiírt táblákhoz

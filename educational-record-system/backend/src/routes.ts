@@ -9,7 +9,7 @@ import { checkAdministrator } from "./protect-routes";
 export const appRouter = express.Router();
 
 const administratorController = new AdministratorController();
-appRouter.post('/administrators', administratorController.create);
+appRouter.post('/administrators/register', administratorController.create);
 appRouter.post('/administrators/login', administratorController.login);
 
 const studentController = new StudentController();

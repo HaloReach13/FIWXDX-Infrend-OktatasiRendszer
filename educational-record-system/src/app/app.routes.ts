@@ -1,6 +1,7 @@
 import { inject } from '@angular/core';
 import { Routes } from '@angular/router';
-import { Login } from './login/login/login';
+import { Register } from './auth/register/register';
+import { Login } from './auth/login/login';
 import { CourseList } from './course/course-list/course-list';
 import { CourseEditor } from './course/course-editor/course-editor';
 import { CourseDetail } from './course/course-detail/course-detail';
@@ -19,6 +20,10 @@ export const routes: Routes = [
     {
         path: '',
         component: CourseList
+    },
+    {
+        path: 'register',
+        component: Register
     },
     {
         path: 'login',

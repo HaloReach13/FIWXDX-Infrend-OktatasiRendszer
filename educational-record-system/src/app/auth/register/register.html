@@ -1,0 +1,33 @@
+<div class="row justify-content-md-center">
+    <div class="col-md-6">
+        <h2 class="mb-4 text-center">Új adminisztrátor regisztrációja</h2>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+                <label for="lastName" class="form-label">Vezetéknév</label>
+                <input type="text" id="lastName" formControlName="lastName" class="form-control" placeholder="Kovács">
+            </div>
+
+            <div class="mb-3">
+                <label for="firstName" class="form-label">Keresztnév</label>
+                <input type="text" id="firstName" formControlName="firstName" class="form-control" placeholder="János">
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email cím</label>
+                <input type="email" id="email" formControlName="email" class="form-control"
+                    placeholder="admin@oktatas.hu">
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Jelszó</label>
+                <input type="password" id="password" formControlName="password" class="form-control"
+                    placeholder="******">
+            </div>
+
+            <div class="d-grid gap-2 mt-4">
+                <button type="submit" class="btn btn-outline-success" [disabled]="registerForm.invalid">Regisztráció</button>
+                <button class="btn btn-outline-secondary text-center" (click)="cancel()">Mégse</button>
+            </div>
+        </form>
+    </div>
+</div>
