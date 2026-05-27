@@ -34,14 +34,13 @@ export class StudentDetail implements OnInit {
     this.studentService.getOne(id).subscribe({
       next: (student) => {
         this.student.set(student);
-        // Tankör átlag lekérése miután megvan a hallgató (kell a class mező)
         this.studentService.getClassAverage(student.class).subscribe({
           next: (data) => this.classAverageData.set(data),
           error: (err) => console.error(err)
         });
       },
       error: (err) => {
-        alert('Hallgató betöltése sikertelen.');
+        alert('Failed to load student.');
         console.error(err);
       }
     });
@@ -49,7 +48,7 @@ export class StudentDetail implements OnInit {
     this.studentService.getCourses(id).subscribe({
       next: (courses) => this.courses.set(courses),
       error: (err) => {
-        alert('Kurzusok betöltése sikertelen.');
+        alert('Failed to load courses.');
         console.error(err);
       }
     });

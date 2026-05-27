@@ -45,7 +45,7 @@ export class CourseDetail implements OnInit {
     this.courseService.getOne(id).subscribe({
       next: (course) => this.course.set(course),
       error: (err) => {
-        alert('Kurzus betöltése sikertelen.');
+        alert('Failed to load course.');
         console.error(err);
       }
     });
@@ -84,7 +84,7 @@ export class CourseDetail implements OnInit {
         this.selectedStudentId.set(null);
       },
       error: (err) => {
-        alert('Hallgató felvétele sikertelen. Lehet, hogy már felvette ezt a tantárgyat korábban.');
+        alert('Student enrollment failed. You may have already enrolled in this course before.');
         console.error(err);
       }
     });
@@ -100,7 +100,7 @@ export class CourseDetail implements OnInit {
         this.enrollments.update(list => list.filter(e => e.enrollmentId !== enrollment.enrollmentId));
       },
       error: (err) => {
-        alert('Eltávolítás sikertelen.');
+        alert('Removal failed.');
         console.error(err);
       }
     });
@@ -123,7 +123,7 @@ export class CourseDetail implements OnInit {
         );
       },
       error: (err) => {
-        alert('Érdemjegy mentése sikertelen.');
+        alert('Saving a badge failed.');
         console.error(err);
       }
     });
